@@ -5,19 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YoutubeDLApp"
         mc:Ignorable="d"
-        Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize">
-    <Window.Background>
-        <ImageBrush ImageSource="/347204f4454719acb08c32b986217f10.png" Opacity="1" Stretch="Fill" TileMode="None">
-            <ImageBrush.RelativeTransform>
-                <TransformGroup>
-                    <ScaleTransform CenterY="0.5" CenterX="0.5" ScaleX="1.1" ScaleY="1.1"/>
-                    <SkewTransform CenterX="0.5" CenterY="0.5"/>
-                    <RotateTransform CenterX="0.5" CenterY="0.5"/>
-                    <TranslateTransform X="0.0075" Y="0.02"/>
-                </TransformGroup>
-            </ImageBrush.RelativeTransform>
-        </ImageBrush>
-    </Window.Background>
+        Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize" Background="White">
     <Grid>
         <TextBox x:Name="YoutubeLink" Margin="10,35,10,0" Text="Youtube Link" Height="18" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url"/>
         <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="20,241,0,0" VerticalAlignment="Top" Width="165" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Height="18" Loaded="VideoOutputDir_Loaded" PreviewMouseLeftButtonDown="VideoOutputDir_MouseDown"/>
