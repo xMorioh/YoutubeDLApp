@@ -15,3 +15,8 @@ This Project is mostly for me to learn how to create Desktop Applications and to
 * Choose between Video and Audio
 * Include Playlist if needed
 * Set different directory Outputs for Video and Audio
+<br>
+
+**Preview**:
+
+![YoutubeDLApp-Preview](https://github.com/xMorioh/YoutubeDLApp/blob/master/YoutubeDLApp-Preview.png)
