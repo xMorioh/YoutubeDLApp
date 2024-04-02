@@ -25,7 +25,7 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Output Directory for Videos")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string VideoOutputDir {
             get {
                 return ((string)(this["VideoOutputDir"]));
@@ -49,7 +49,7 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Output Directory for Audio Files")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AudioOutputDir {
             get {
                 return ((string)(this["AudioOutputDir"]));

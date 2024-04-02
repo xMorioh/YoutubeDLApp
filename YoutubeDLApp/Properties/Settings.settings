@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="VideoOutputDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Output Directory for Videos</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ffmpegDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">ffmpeg Directory</Value>
     </Setting>
     <Setting Name="AudioOutputDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Output Directory for Audio Files</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
