@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YoutubeDLApp"
         mc:Ignorable="d"
-        Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize" Background="White">
-    <Grid>
-        <TextBox x:Name="YoutubeLink" Margin="10,35,10,0" Text="Youtube Link" Height="18" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url"/>
-        <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="20,241,0,0" VerticalAlignment="Top" Width="165" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Height="18" Loaded="VideoOutputDir_Loaded" PreviewMouseLeftButtonDown="VideoOutputDir_MouseDown"/>
-        <Button x:Name="DownloadButton" Content="Download" HorizontalAlignment="Center" Margin="0,273,0,0" VerticalAlignment="Top" Click="DownloadButton_Click" IsEnabled="False" Height="20" Width="58"/>
+        Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <Grid Width="430" Height="360" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBox x:Name="YoutubeLink" Margin="10,20,10,0" Text="Enter Youtube Link:" Height="20" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="YoutubeLink_Click" FontSize="13"/>
+        <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="215,208,0,133" Width="164" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Loaded="VideoOutputDir_Loaded" PreviewMouseLeftButtonDown="VideoOutputDir_MouseDown"/>
+        <Button x:Name="DownloadButton" Content="Download" HorizontalAlignment="Center" Margin="0,270,0,63" Click="DownloadButton_Click" IsEnabled="False" Width="131" FontSize="16" FontWeight="Bold"/>
         <RadioButton x:Name="VideoRadioButton" Content="Video" HorizontalAlignment="Left" Margin="36,98,0,0" VerticalAlignment="Top" Checked="VideoRadioButton_Checked" Height="15" Width="50"/>
         <RadioButton x:Name="AudioRadioButton" Content="Audio" HorizontalAlignment="Left" Margin="91,98,0,0" VerticalAlignment="Top" Checked="AudioRadioButton_Checked" IsChecked="True" Height="15" Width="51"/>
-        <CheckBox x:Name="PlaylistCheckbox" Content="Playlist" HorizontalAlignment="Left" Margin="36,166,0,0" Height="15" VerticalAlignment="Top" Checked="PlaylistCheckbox_Checked" Width="56"/>
+        <CheckBox x:Name="PlaylistCheckbox" Content="Playlist" Margin="36,166,338,0" Height="15" VerticalAlignment="Top" Checked="PlaylistCheckbox_Checked"/>
         <GroupBox Header="" HorizontalAlignment="Left" Margin="20,64,0,0" VerticalAlignment="Top" Height="74" Width="140"/>
-        <TextBlock Margin="0,0,111,12" TextWrapping="Wrap" Text="Local Youtube-dlp Version:" HorizontalAlignment="Right" Width="142" VerticalAlignment="Bottom" IsEnabled="False" Opacity="0.5" Height="16"/>
+        <TextBlock Margin="0,0,111,12" TextWrapping="Wrap" Text="local Youtube-dlp Version:" HorizontalAlignment="Right" Width="142" VerticalAlignment="Bottom" IsEnabled="False" Opacity="0.5" Height="16"/>
         <TextBox x:Name="Youtubedlpversion" Margin="0,0,10,10" TextChanged="Youtubedlpversion_TextChanged" HorizontalAlignment="Right" Width="96" VerticalAlignment="Bottom" IsEnabled="False" Height="18" Loaded="Youtubedlpversion_Loaded" IsReadOnly="True"/>
-        <TextBox x:Name="AudioOutputDir" HorizontalAlignment="Right" Margin="0,241,17,0" VerticalAlignment="Top" Width="165" TextChanged="AudioOutputDir_TextChanged" InputScope="FullFilePath" Height="18" Loaded="AudioOutputDir_Loaded" PreviewMouseLeftButtonDown="AudioOutputDir_MouseDown"/>
-        <Button x:Name="UpdateDependenciesButton" Content="Update Dependencies" HorizontalAlignment="Left" Margin="10,0,0,8" VerticalAlignment="Bottom" Width="132" Click="UpdateDependenciesButton_Click"/>
-        <TextBlock HorizontalAlignment="Right" Margin="0,220,17,0" TextWrapping="WrapWithOverflow" Text="Audio Output Directory:" VerticalAlignment="Top" Width="165" Foreground="Black" Background="#FFD6D6D6"/>
-        <TextBlock HorizontalAlignment="Left" Margin="20,220,0,0" TextWrapping="WrapWithOverflow" Text="Video Output Directory:" VerticalAlignment="Top" Width="165" Foreground="Black" Background="#FFD6D6D6"/>
+        <TextBox x:Name="AudioOutputDir" HorizontalAlignment="Left" Margin="215,232,0,109" Width="164" TextChanged="AudioOutputDir_TextChanged" InputScope="FullFilePath" Loaded="AudioOutputDir_Loaded" PreviewMouseLeftButtonDown="AudioOutputDir_MouseDown"/>
+        <Button x:Name="UpdateDependenciesButton" Content="Update Dependencies" HorizontalAlignment="Left" Margin="10,0,0,10" Width="132" Click="UpdateDependenciesButton_Click" Height="20" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Left" Margin="82,233,0,110" TextWrapping="WrapWithOverflow" Text="Audio Output Directory:" Width="128" Foreground="Black" Background="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="82,209,0,134" TextWrapping="WrapWithOverflow" Text="Video Output Directory:" Width="128" Foreground="Black" Background="White"/>
     </Grid>
 </Window>

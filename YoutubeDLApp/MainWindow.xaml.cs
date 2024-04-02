@@ -77,12 +77,12 @@ namespace YoutubeDLApp
         {
             //Check for YT-DLP Version
             string YTDlpExePath = SpecifiedAppdataFolder() + "yt-dlp.exe";
-            string version;
+            string YTDlpVersion;
 
             if (File.Exists(YTDlpExePath))
             {
                 var versionInfo = FileVersionInfo.GetVersionInfo(YTDlpExePath);
-                version = versionInfo.FileVersion;
+                YTDlpVersion = versionInfo.FileVersion;
             }
             else
             {
@@ -98,11 +98,11 @@ namespace YoutubeDLApp
                         }
                     }
                     var versionInfo = FileVersionInfo.GetVersionInfo(YTDlpExePath);
-                    version = versionInfo.FileVersion;
+                    YTDlpVersion = versionInfo.FileVersion;
                 }
                 catch
                 {
-                    version = "null";
+                    YTDlpVersion = "null";
                     System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe and insert it into " + SpecifiedAppdataFolder());
                 }
             }
@@ -141,11 +141,11 @@ namespace YoutubeDLApp
             //Wait till Youtubedlpversion has fully initiallized otherwise it throws an exception
             if (Youtubedlpversion == null)
                 await Task.Delay(3000);
-            Youtubedlpversion.Text = version;
+            Youtubedlpversion.Text = YTDlpVersion;
             DownloadButton.IsEnabled = true;
         }
 
-        public string ChooseFolder(string DefaultPath)
+        public string ChooseFolder(string CurrentPath)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             fbd.RootFolder = Environment.SpecialFolder.Desktop;
@@ -154,7 +154,7 @@ namespace YoutubeDLApp
             {
                 return fbd.SelectedPath;
             }
-            return DefaultPath;
+            return CurrentPath;
         }
 
         private string SpecifiedAppdataFolder()
@@ -168,6 +168,12 @@ namespace YoutubeDLApp
         private void YoutubeLink_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void YoutubeLink_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (YoutubeLink.Text == "Enter Youtube Link:")
+                YoutubeLink.Text = "";
         }
 
         private void Youtubedlpversion_TextChanged(object sender, TextChangedEventArgs e)
@@ -191,6 +197,11 @@ namespace YoutubeDLApp
             Properties.Settings.Default.Save();
         }
 
+        private void VideoOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            VideoOutputDir.Text = ChooseFolder(VideoOutputDir.Text);
+        }
+
         private void AudioOutputDir_Loaded(object sender, RoutedEventArgs e)
         {
             AudioOutputDir.Text = Properties.Settings.Default.AudioOutputDir;
@@ -200,6 +211,11 @@ namespace YoutubeDLApp
         {
             Properties.Settings.Default.AudioOutputDir = AudioOutputDir.Text;
             Properties.Settings.Default.Save();
+        }
+
+        private void AudioOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AudioOutputDir.Text = ChooseFolder(AudioOutputDir.Text);
         }
 
         private void PlaylistCheckbox_Checked(object sender, RoutedEventArgs e)
@@ -223,16 +239,6 @@ namespace YoutubeDLApp
             File.Delete(SpecifiedAppdataFolder() + "ffmpeg.exe");
             System.Windows.Forms.Application.Restart();
             Environment.Exit(0);
-        }
-
-        private void AudioOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            AudioOutputDir.Text = ChooseFolder(AudioOutputDir.Text);
-        }
-
-        private void VideoOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            VideoOutputDir.Text = ChooseFolder(VideoOutputDir.Text);
         }
     }
 }
