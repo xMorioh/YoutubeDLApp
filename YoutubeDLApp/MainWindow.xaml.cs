@@ -1,12 +1,17 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Media;
 using YoutubeDLApp.Properties;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace YoutubeDLApp
 {
@@ -18,12 +23,14 @@ namespace YoutubeDLApp
         public MainWindow()
         {
             InitializeComponent();
+            //Reset settings for debugging the User Settings on start
+            //Properties.Settings.Default.Reset();
         }
 
         private void DownloadButton_Click(object sender, RoutedEventArgs e)
         {
             string Link = YoutubeLink.Text;
-            //string OutputDirectory = OutputDir.Text;
+            string CustomAttributes = CustomAttributesTextField.Text;
             string ffmpegDirectory = SpecifiedAppdataFolder() + "ffmpeg.exe";
             string YTDlpExePath = SpecifiedAppdataFolder() + "yt-dlp.exe";
 
@@ -33,21 +40,21 @@ namespace YoutubeDLApp
                 Playlist = " --yes-playlist";
 
             string OutputDirectory = Properties.Settings.Default.AudioOutputDir;
-            string IsAudioOrVideo = " --extract-audio --audio-format mp3 --audio-quality 0";
+            string IsAudioOrVideo = " --extract-audio";
             if (AudioRadioButton.IsChecked.Value)
             {
                 OutputDirectory = Properties.Settings.Default.AudioOutputDir;
-                IsAudioOrVideo = " --extract-audio --audio-format mp3 --audio-quality 0";
+                IsAudioOrVideo = " --extract-audio";
             }
             
             else if (VideoRadioButton.IsChecked.Value)
             {
                 OutputDirectory = Properties.Settings.Default.VideoOutputDir;
-                IsAudioOrVideo = " -f \"bestvideo[height<=?1080][fps<=?60]+bestaudio\" --remux-video mp4 --embed-thumbnail";
+                IsAudioOrVideo = " ";
             }
                 
 
-            string Args = Link + IsAudioOrVideo + " --ffmpeg-location " + ffmpegDirectory + Playlist + " -P " + OutputDirectory;
+            string Args = Link + IsAudioOrVideo + CustomAttributes + " --ffmpeg-location " + $"\"{ffmpegDirectory}\"" + Playlist + " -P " + $"\"{OutputDirectory}\"";
 
 
             ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -64,6 +71,8 @@ namespace YoutubeDLApp
                 // Call WaitForExit and then the using statement will close.
                 using (Process exeProcess = Process.Start(startInfo))
                 {
+                    if (DebugCheckBox.IsChecked.Value == true)
+                        System.Windows.Forms.MessageBox.Show(Args, "Debug Window");
                     exeProcess.WaitForExit();
                 }
             }
@@ -223,14 +232,16 @@ namespace YoutubeDLApp
 
         }
 
-        private void AudioRadioButton_Checked(object sender, RoutedEventArgs e)
+        private async void AudioRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            
+            if (CustomAttributesTextField == null)
+                await Task.Delay(3000);
+            CustomAttributesTextField.Text = Properties.Settings.Default.AudioCustomAttributesTextField;
         }
 
         private void VideoRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            
+            CustomAttributesTextField.Text = Properties.Settings.Default.VideoCustomAttributesTextField;
         }
 
         private void UpdateDependenciesButton_Click(object sender, RoutedEventArgs e)
@@ -239,6 +250,44 @@ namespace YoutubeDLApp
             File.Delete(SpecifiedAppdataFolder() + "ffmpeg.exe");
             System.Windows.Forms.Application.Restart();
             Environment.Exit(0);
+        }
+
+        private void CustomAttributesTextField_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
+
+        private async void CustomAttributesTextField_Loaded(object sender, RoutedEventArgs e)
+        {
+            await Task.Delay(3000);
+            CustomAttributesTextField.IsEnabled = true;
+            CustomAttributesTextField.Text = Properties.Settings.Default.AudioCustomAttributesTextField;
+            AudioRadioButton.IsEnabled = true;
+            VideoRadioButton.IsEnabled = true;
+        }
+
+        private void CustomAttributesTextField_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (VideoRadioButton.IsChecked == true)
+            {
+                Properties.Settings.Default.VideoCustomAttributesTextField = CustomAttributesTextField.Text;
+                Properties.Settings.Default.Save();
+            }
+            else if (AudioRadioButton.IsChecked == true)
+            {
+                Properties.Settings.Default.AudioCustomAttributesTextField = CustomAttributesTextField.Text;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void CustomAttributesLink_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#usage-and-options");
+        }
+
+        private void DebugCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

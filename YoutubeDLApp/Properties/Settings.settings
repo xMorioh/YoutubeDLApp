@@ -11,5 +11,11 @@
     <Setting Name="AudioOutputDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AudioCustomAttributesTextField" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> --audio-format mp3 --audio-quality 0</Value>
+    </Setting>
+    <Setting Name="VideoCustomAttributesTextField" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-f "bestvideo[height&lt;=?1080][fps&lt;=?60]+bestaudio" --remux-video mp4 --embed-thumbnail</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

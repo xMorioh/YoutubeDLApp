@@ -58,5 +58,30 @@ namespace YoutubeDLApp.Properties {
                 this["AudioOutputDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(" --audio-format mp3 --audio-quality 0")]
+        public string AudioCustomAttributesTextField {
+            get {
+                return ((string)(this["AudioCustomAttributesTextField"]));
+            }
+            set {
+                this["AudioCustomAttributesTextField"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestvideo[height<=?1080][fps<=?60]+bestaudio\" --remux-video mp4 --embed-thumb" +
+            "nail")]
+        public string VideoCustomAttributesTextField {
+            get {
+                return ((string)(this["VideoCustomAttributesTextField"]));
+            }
+            set {
+                this["VideoCustomAttributesTextField"] = value;
+            }
+        }
     }
 }
