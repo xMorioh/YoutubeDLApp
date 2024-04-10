@@ -40,11 +40,11 @@ namespace YoutubeDLApp
                 Playlist = " --yes-playlist";
 
             string OutputDirectory = Properties.Settings.Default.AudioOutputDir;
-            string IsAudioOrVideo = " --extract-audio";
+            string IsAudioOrVideo = " --extract-audio ";
             if (AudioRadioButton.IsChecked.Value)
             {
                 OutputDirectory = Properties.Settings.Default.AudioOutputDir;
-                IsAudioOrVideo = " --extract-audio";
+                IsAudioOrVideo = " --extract-audio ";
             }
             
             else if (VideoRadioButton.IsChecked.Value)
@@ -147,11 +147,10 @@ namespace YoutubeDLApp
             }
             
 
-            //Wait till Youtubedlpversion has fully initiallized otherwise it throws an exception
-            if (Youtubedlpversion == null)
-                await Task.Delay(3000);
+            //Wait till Youtubedlpversion has fully initiallized
+            //if (Youtubedlpversion == null)
+            //    await Task.Delay(3000);
             Youtubedlpversion.Text = YTDlpVersion;
-            DownloadButton.IsEnabled = true;
         }
 
         public string ChooseFolder(string CurrentPath)
@@ -174,9 +173,15 @@ namespace YoutubeDLApp
             return directory;
         }
 
-        private void YoutubeLink_TextChanged(object sender, TextChangedEventArgs e)
+        private async void YoutubeLink_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            //Handle Download Button activation
+            if (CustomAttributesTextField == null || CustomAttributesTextField.IsEnabled == false)
+                await Task.Delay(3000);
+            if (YoutubeLink.Text == "Enter Youtube Link:" || YoutubeLink.Text == "")
+                DownloadButton.IsEnabled = false;
+            else
+                DownloadButton.IsEnabled = true;
         }
 
         private void YoutubeLink_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)

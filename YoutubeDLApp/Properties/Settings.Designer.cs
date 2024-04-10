@@ -61,7 +61,7 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" --audio-format mp3 --audio-quality 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestaudio\" --audio-format mp3")]
         public string AudioCustomAttributesTextField {
             get {
                 return ((string)(this["AudioCustomAttributesTextField"]));
