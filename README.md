@@ -18,6 +18,7 @@ This Project is mostly for me to learn how to create Desktop Applications and to
 * Set custom yt-dlp Attributes if needed
 * Offers a Debug Window and a quick dependencie update Button
 <br>
+
 Since this GUI just transfers input to yt-dlp there should be no restrictions on what yt-dlp supports including not just Youtube but also Twitter/X and the entire list noted [here](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#extractor-arguments) even despite the Name of this application it is much more flexible than it seems.
 <br>
 
