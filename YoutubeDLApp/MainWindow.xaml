@@ -9,22 +9,25 @@
         mc:Ignorable="d"
         Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid Width="430" Height="360" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBox x:Name="YoutubeLink" Margin="10,20,10,0" Text="Enter Youtube Link:" Height="20" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="YoutubeLink_Click" FontSize="13"/>
-        <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="215,208,0,133" Width="164" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Loaded="VideoOutputDir_Loaded" PreviewMouseLeftButtonDown="VideoOutputDir_MouseDown"/>
-        <Button x:Name="DownloadButton" Content="Download" HorizontalAlignment="Center" Margin="0,270,0,63" Click="DownloadButton_Click" IsEnabled="False" Width="131" FontSize="16" FontWeight="Bold"/>
+        <TextBox x:Name="YoutubeLink" Margin="10,20,10,0" Text="Enter Youtube Link:" Height="21.7" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="YoutubeLink_Click" FontSize="13" BorderThickness="2,2,2,2"/>
+        <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="143,198,0,140" Width="164" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Loaded="VideoOutputDir_Loaded" Height="21.7" BorderThickness="2,2,2,2"/>
+        <Button x:Name="DownloadButton" Content="Download" HorizontalAlignment="Center" Margin="0,270,0,63" Click="DownloadButton_Click" IsEnabled="False" Width="130" FontSize="16" FontWeight="Bold"/>
         <RadioButton x:Name="VideoRadioButton" Content="Video" HorizontalAlignment="Left" Margin="36,98,0,0" VerticalAlignment="Top" Checked="VideoRadioButton_Checked" Height="15" Width="50" IsEnabled="False"/>
         <RadioButton x:Name="AudioRadioButton" Content="Audio" HorizontalAlignment="Left" Margin="91,98,0,0" VerticalAlignment="Top" Checked="AudioRadioButton_Checked" IsChecked="True" Height="15" Width="51" IsEnabled="False"/>
-        <CheckBox x:Name="PlaylistCheckbox" Content="Playlist" Margin="36,166,338,0" Height="15" VerticalAlignment="Top" Checked="PlaylistCheckbox_Checked"/>
+        <CheckBox x:Name="PlaylistCheckbox" Content="Playlist" Margin="36,144,338,0" Height="15" VerticalAlignment="Top" Checked="PlaylistCheckbox_Checked"/>
         <GroupBox Header="" HorizontalAlignment="Left" Margin="20,64,0,0" VerticalAlignment="Top" Height="74" Width="140"/>
         <TextBlock Margin="0,0,111,12" Text="local yt-dlp Version:" HorizontalAlignment="Right" Width="104" VerticalAlignment="Bottom" IsEnabled="False" Opacity="0.5" Height="16"/>
         <TextBox x:Name="Youtubedlpversion" Margin="0,0,10,10" TextChanged="Youtubedlpversion_TextChanged" HorizontalAlignment="Right" Width="96" VerticalAlignment="Bottom" IsEnabled="False" Height="18" Loaded="Youtubedlpversion_Loaded" IsReadOnly="True"/>
-        <TextBox x:Name="AudioOutputDir" HorizontalAlignment="Left" Margin="215,232,0,109" Width="164" TextChanged="AudioOutputDir_TextChanged" InputScope="FullFilePath" Loaded="AudioOutputDir_Loaded" PreviewMouseLeftButtonDown="AudioOutputDir_MouseDown"/>
+        <TextBox x:Name="AudioOutputDir" HorizontalAlignment="Left" Margin="143,229,0,109" Width="164" TextChanged="AudioOutputDir_TextChanged" InputScope="FullFilePath" Loaded="AudioOutputDir_Loaded" Height="21.7" BorderThickness="2,2,2,2"/>
         <Button x:Name="UpdateDependenciesButton" Content="Update Dependencies" HorizontalAlignment="Left" Margin="10,0,0,10" Width="132" Click="UpdateDependenciesButton_Click" Height="20" VerticalAlignment="Bottom"/>
-        <TextBlock HorizontalAlignment="Left" Margin="82,233,0,110" TextWrapping="WrapWithOverflow" Text="Audio Output Directory:" Width="128" Foreground="Black" Background="White"/>
-        <TextBlock HorizontalAlignment="Left" Margin="82,209,0,134" TextWrapping="WrapWithOverflow" Text="Video Output Directory:" Width="128" Foreground="Black" Background="White"/>
-        <TextBox x:Name="CustomAttributesTextField" Margin="233,96,19,0" Height="20" VerticalAlignment="Top" TextChanged="CustomAttributesTextField_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="CustomAttributesTextField_Click" FontSize="13" Loaded="CustomAttributesTextField_Loaded" IsEnabled="False"/>
-        <TextBlock HorizontalAlignment="Left" Margin="170,98,0,246" TextWrapping="WrapWithOverflow" Text="Attributes:" Width="58" Foreground="Black" Background="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="53,232,0,112" TextWrapping="WrapWithOverflow" Text="Audio Directory:" Width="90" Foreground="Black" Background="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="53,200,0,143" TextWrapping="WrapWithOverflow" Text="Video Directory:" Width="90" Foreground="Black" Background="White"/>
+        <TextBox x:Name="CustomAttributesTextField" Margin="233,96,19,0" Height="21.7" VerticalAlignment="Top" TextChanged="CustomAttributesTextField_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="CustomAttributesTextField_Click" FontSize="13" Loaded="CustomAttributesTextField_Loaded" IsEnabled="False" BorderThickness="2,2,2,2"/>
+        <TextBlock HorizontalAlignment="Left" Margin="170,99,0,245" TextWrapping="WrapWithOverflow" Text="Attributes:" Width="58" Foreground="Black" Background="White"/>
         <TextBlock x:Name="CustomAttributesLink" HorizontalAlignment="Left" Margin="233,121,0,204" TextWrapping="WrapWithOverflow" Width="178" Foreground="#FF0084FF" Background="White" PreviewMouseDown="CustomAttributesLink_MouseDown" Cursor="Hand"><Run Text="   search for custom attributes:"/><LineBreak/><Run Text="https://github.com/yt-dlp/yt-dlp"/></TextBlock>
         <CheckBox x:Name="DebugCheckBox" Content="Debug" HorizontalAlignment="Left" Margin="10,310,0,0" VerticalAlignment="Top" Checked="DebugCheckBox_Checked"/>
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="313,198,0,0" VerticalAlignment="Top" Click="VideoBrowseButton_Click" Width="68" Height="21"/>
+        <Button Content="Browse" HorizontalAlignment="Left" Margin="313,229,0,0" VerticalAlignment="Top" Click="AudioBrowseButton_Click" Width="68" Height="22"/>
+        <GroupBox Header="Output Paths" Margin="35,176,35,95"/>
     </Grid>
 </Window>

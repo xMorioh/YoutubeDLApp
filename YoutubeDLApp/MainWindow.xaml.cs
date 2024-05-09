@@ -211,11 +211,6 @@ namespace YoutubeDLApp
             Properties.Settings.Default.Save();
         }
 
-        private void VideoOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            VideoOutputDir.Text = ChooseFolder(VideoOutputDir.Text);
-        }
-
         private void AudioOutputDir_Loaded(object sender, RoutedEventArgs e)
         {
             AudioOutputDir.Text = Properties.Settings.Default.AudioOutputDir;
@@ -225,11 +220,6 @@ namespace YoutubeDLApp
         {
             Properties.Settings.Default.AudioOutputDir = AudioOutputDir.Text;
             Properties.Settings.Default.Save();
-        }
-
-        private void AudioOutputDir_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            AudioOutputDir.Text = ChooseFolder(AudioOutputDir.Text);
         }
 
         private void PlaylistCheckbox_Checked(object sender, RoutedEventArgs e)
@@ -293,6 +283,16 @@ namespace YoutubeDLApp
         private void DebugCheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void VideoBrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            VideoOutputDir.Text = ChooseFolder(VideoOutputDir.Text);
+        }
+
+        private void AudioBrowseButton_Click(object sender, RoutedEventArgs e)
+        {
+            AudioOutputDir.Text = ChooseFolder(AudioOutputDir.Text);
         }
     }
 }
