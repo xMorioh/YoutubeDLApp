@@ -67,13 +67,16 @@ namespace YoutubeDLApp
 
             try
             {
-                // Start the process with the info we specified.
-                // Call WaitForExit and then the using statement will close.
-                using (Process exeProcess = Process.Start(startInfo))
+                if (Youtubedlpversion.Text != "")
                 {
-                    if (DebugCheckBox.IsChecked.Value == true)
-                        System.Windows.Forms.MessageBox.Show(Args, "Debug Window");
-                    exeProcess.WaitForExit();
+                    // Start the process with the info we specified.
+                    // Call WaitForExit and then the using statement will close.
+                    using (Process exeProcess = Process.Start(startInfo))
+                    {
+                        if (DebugCheckBox.IsChecked.Value == true)
+                            System.Windows.Forms.MessageBox.Show(Args, "Debug Window");
+                        exeProcess.WaitForExit();
+                    }
                 }
             }
             catch
@@ -84,6 +87,37 @@ namespace YoutubeDLApp
 
         private async void VersionCheck()
         {
+            //Update|Download ffmpeg, need to do this first so the User knows when everything is done after yt-dlp has finished last.
+            if (!File.Exists(SpecifiedAppdataFolder() + "ffmpeg.exe"))
+            {
+                string pathWithZipFile = SpecifiedAppdataFolder() + "ffmpeg-master-latest-win64-gpl.zip";
+
+                try //Catchblock if the Remote Server is down or the User has no Internet or the file does not exist anymore on the remote server etc.
+                {
+                    var httpClient = new HttpClient();
+
+                    using (var HTTPstream = await httpClient.GetStreamAsync("https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"))
+                    {
+                        using (var fileStream = new FileStream(pathWithZipFile, FileMode.CreateNew, FileAccess.ReadWrite))
+                        {
+                            await HTTPstream.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe and insert it into " + SpecifiedAppdataFolder());
+                }
+
+                System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
+                string ExtractedFolderPath = SpecifiedAppdataFolder() + "ffmpeg-master-latest-win64-gpl";
+                string[] ffmpegFinder = Directory.GetFiles(ExtractedFolderPath, "ffmpeg.exe", SearchOption.AllDirectories);
+                File.Move(ffmpegFinder[0], SpecifiedAppdataFolder() + "ffmpeg.exe");
+                File.Delete(pathWithZipFile);
+                Directory.Delete(ExtractedFolderPath, true);
+            }
+
+
             //Check for YT-DLP Version
             string YTDlpExePath = SpecifiedAppdataFolder() + "yt-dlp.exe";
             string YTDlpVersion;
@@ -115,37 +149,6 @@ namespace YoutubeDLApp
                     System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe and insert it into " + SpecifiedAppdataFolder());
                 }
             }
-
-
-            if (!File.Exists(SpecifiedAppdataFolder() + "ffmpeg.exe"))
-            {
-                string pathWithZipFile = SpecifiedAppdataFolder() + "ffmpeg-master-latest-win64-gpl.zip";
-
-                try //Catchblock if the Remote Server is down or the User has no Internet or the file does not exist anymore on the remote server etc.
-                {
-                    var httpClient = new HttpClient();
-
-                    using (var HTTPstream = await httpClient.GetStreamAsync("https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"))
-                    {
-                        using (var fileStream = new FileStream(pathWithZipFile, FileMode.CreateNew, FileAccess.ReadWrite))
-                        {
-                            await HTTPstream.CopyToAsync(fileStream);
-                        }
-                    }
-                }
-                catch
-                {
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe and insert it into " + SpecifiedAppdataFolder());
-                }
-
-                System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
-                string ExtractedFolderPath = SpecifiedAppdataFolder() + "ffmpeg-master-latest-win64-gpl";
-                string[] ffmpegFinder = Directory.GetFiles(ExtractedFolderPath, "ffmpeg.exe", SearchOption.AllDirectories);
-                File.Move(ffmpegFinder[0], SpecifiedAppdataFolder() + "ffmpeg.exe");
-                File.Delete(pathWithZipFile);
-                Directory.Delete(ExtractedFolderPath, true);
-            }
-            
 
             //Wait till Youtubedlpversion has fully initiallized
             //if (Youtubedlpversion == null)
@@ -192,7 +195,7 @@ namespace YoutubeDLApp
 
         private void Youtubedlpversion_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            
         }
 
         private void Youtubedlpversion_Loaded(object sender, RoutedEventArgs e)

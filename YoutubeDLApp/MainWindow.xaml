@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="yt-dlp App" Height="375" Width="429" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid Width="430" Height="360" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <TextBox x:Name="YoutubeLink" Margin="10,20,10,0" Text="Enter Youtube Link:" Height="21.7" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url" PreviewMouseLeftButtonDown="YoutubeLink_Click" FontSize="13" BorderThickness="2,2,2,2"/>
+        <TextBox x:Name="YoutubeLink" Margin="10,20,10,0" Text="Enter Youtube Link:" Height="21.7" VerticalAlignment="Top" TextChanged="YoutubeLink_TextChanged" InputScope="Url" FontSize="13" BorderThickness="2,2,2,2" PreviewMouseDown="YoutubeLink_Click"/>
         <TextBox x:Name="VideoOutputDir" HorizontalAlignment="Left" Margin="143,198,0,140" Width="164" TextChanged="VideoOutputDir_TextChanged" InputScope="FullFilePath" Loaded="VideoOutputDir_Loaded" Height="21.7" BorderThickness="2,2,2,2"/>
         <Button x:Name="DownloadButton" Content="Download" HorizontalAlignment="Center" Margin="0,270,0,63" Click="DownloadButton_Click" IsEnabled="False" Width="130" FontSize="16" FontWeight="Bold"/>
         <RadioButton x:Name="VideoRadioButton" Content="Video" HorizontalAlignment="Left" Margin="36,98,0,0" VerticalAlignment="Top" Checked="VideoRadioButton_Checked" Height="15" Width="50" IsEnabled="False"/>
