@@ -25,7 +25,7 @@ Since this GUI just transfers input to yt-dlp there should be no restrictions on
 If you update the dependencies or use this application for the first time then wait for the "local yt-dlp Version" String to show up, if the text field is empty it means that the dependencies are still downloading or unpacking in the Background, if it won't populate after a Minute or two then check if there is still a download happening on your machine or check if both yt-dlp.exe and ffmpeg.exe are stored under this location "%localappdata%\Morioh\yt-dlp-App\dependencies", if not then try downloading them manually and insert them there (links above).
 <br>
 <br>
-If you encounter any Errors like `ERROR: [youtube] ******: Sign in to confirm you're not a bot. *` you can just use your browsers cookies to validate you're not a bot by specifying a custom Attribute "--cookies-from-browser firefox" for firefox for example, yt-dlp will automatically access your browsers cookie storage and use that to verify you to Youtube. You've also got other authentication options listed [here](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#authentication-options)
+If you encounter any Errors like `ERROR: [youtube] ******: Sign in to confirm you're not a bot. *` you can just use your browsers cookies to validate you're not a bot by specifying a custom Attribute `--cookies-from-browser firefox` for firefox for example, yt-dlp will automatically access your browsers cookie storage and use that to verify you to Youtube. You've also got other authentication options listed [here](https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#authentication-options)
 <br>
 
 **Preview**:

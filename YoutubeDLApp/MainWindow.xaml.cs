@@ -67,7 +67,7 @@ namespace YoutubeDLApp
 
             try
             {
-                if (Youtubedlpversion.Text != "")
+                if (Youtubedlpversion.Text != "loading...")
                 {
                     // Start the process with the info we specified.
                     // Call WaitForExit and then the using statement will close.
@@ -77,6 +77,10 @@ namespace YoutubeDLApp
                             System.Windows.Forms.MessageBox.Show(Args, "Debug Window");
                         exeProcess.WaitForExit();
                     }
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("Application has not finished initializing yet.\nLook at the (local yt-dlp Version) box, if it's still loading... then it might just take a little longer until it has finished downloading all dependencies", "Application initialization not finished");
                 }
             }
             catch
@@ -152,7 +156,7 @@ namespace YoutubeDLApp
 
             //Wait till Youtubedlpversion has fully initiallized
             //if (Youtubedlpversion == null)
-            //    await Task.Delay(3000);
+            //    await Task.Delay(2000);
             Youtubedlpversion.Text = YTDlpVersion;
         }
 
@@ -180,8 +184,8 @@ namespace YoutubeDLApp
         {
             //Handle Download Button activation
             if (CustomAttributesTextField == null || CustomAttributesTextField.IsEnabled == false)
-                await Task.Delay(3000);
-            if (YoutubeLink.Text == "Enter Youtube Link:" || YoutubeLink.Text == "")
+                await Task.Delay(2000);
+            if (YoutubeLink.Text == "Enter Link:" || YoutubeLink.Text == "")
                 DownloadButton.IsEnabled = false;
             else
                 DownloadButton.IsEnabled = true;
@@ -189,13 +193,13 @@ namespace YoutubeDLApp
 
         private void YoutubeLink_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (YoutubeLink.Text == "Enter Youtube Link:")
+            if (YoutubeLink.Text == "Enter Link:")
                 YoutubeLink.Text = "";
         }
 
         private void Youtubedlpversion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
 
         private void Youtubedlpversion_Loaded(object sender, RoutedEventArgs e)
@@ -233,7 +237,7 @@ namespace YoutubeDLApp
         private async void AudioRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             if (CustomAttributesTextField == null)
-                await Task.Delay(3000);
+                await Task.Delay(2000);
             CustomAttributesTextField.Text = Properties.Settings.Default.AudioCustomAttributesTextField;
         }
 
@@ -257,7 +261,7 @@ namespace YoutubeDLApp
 
         private async void CustomAttributesTextField_Loaded(object sender, RoutedEventArgs e)
         {
-            await Task.Delay(3000);
+            await Task.Delay(2000);
             CustomAttributesTextField.IsEnabled = true;
             CustomAttributesTextField.Text = Properties.Settings.Default.AudioCustomAttributesTextField;
             AudioRadioButton.IsEnabled = true;

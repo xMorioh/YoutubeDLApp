@@ -12,10 +12,10 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AudioCustomAttributesTextField" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-f "bestaudio" --audio-format mp3 --embed-metadata -o "%(title)s.%(ext)s"</Value>
+      <Value Profile="(Default)">-f "bestaudio" --audio-format mp3 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"</Value>
     </Setting>
     <Setting Name="VideoCustomAttributesTextField" Type="System.String" Scope="User">
-      <Value Profile="(Default)">-f "bestvideo[height&lt;=?1080][fps&lt;=?60]+bestaudio" --remux-video mp4 --embed-thumbnail -o "%(title)s.%(ext)s"</Value>
+      <Value Profile="(Default)">-f "bestvideo[height&lt;=?1080][fps&lt;=?60]+bestaudio" --remux-video mp4 --embed-metadata --embed-thumbnail -o "%(title)s.%(ext)s"</Value>
     </Setting>
   </Settings>
 </SettingsFile>

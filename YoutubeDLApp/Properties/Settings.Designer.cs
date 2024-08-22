@@ -61,7 +61,8 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestaudio\" --audio-format mp3 --embed-metadata -o \"%(title)s.%(ext)s\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestaudio\" --audio-format mp3 --embed-metadata --embed-thumbnail -o \"%(title)" +
+            "s.%(ext)s\"")]
         public string AudioCustomAttributesTextField {
             get {
                 return ((string)(this["AudioCustomAttributesTextField"]));
@@ -73,8 +74,8 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestvideo[height<=?1080][fps<=?60]+bestaudio\" --remux-video mp4 --embed-thumb" +
-            "nail -o \"%(title)s.%(ext)s\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestvideo[height<=?1080][fps<=?60]+bestaudio\" --remux-video mp4 --embed-metad" +
+            "ata --embed-thumbnail -o \"%(title)s.%(ext)s\"")]
         public string VideoCustomAttributesTextField {
             get {
                 return ((string)(this["VideoCustomAttributesTextField"]));
