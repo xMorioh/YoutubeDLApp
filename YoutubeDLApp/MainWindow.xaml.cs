@@ -110,7 +110,7 @@ namespace YoutubeDLApp
                 }
                 catch
                 {
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe and insert it into " + SpecifiedAppdataFolder());
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe from:\nhttps://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip\nand insert it into " + SpecifiedAppdataFolder());
                 }
 
                 System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
@@ -150,7 +150,7 @@ namespace YoutubeDLApp
                 catch
                 {
                     YTDlpVersion = "null";
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe and insert it into " + SpecifiedAppdataFolder());
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe from:\nhttps://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe\nand insert it into " + SpecifiedAppdataFolder());
                 }
             }
 
