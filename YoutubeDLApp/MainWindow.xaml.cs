@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Media;
-using YoutubeDLApp.Properties;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace YoutubeDLApp
 {
@@ -61,7 +55,6 @@ namespace YoutubeDLApp
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
             startInfo.FileName = YTDlpExePath;
-            startInfo.UseShellExecute = false;
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.Arguments = Args;
 
@@ -285,11 +278,6 @@ namespace YoutubeDLApp
         private void CustomAttributesLink_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#usage-and-options");
-        }
-
-        private void DebugCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void VideoBrowseButton_Click(object sender, RoutedEventArgs e)

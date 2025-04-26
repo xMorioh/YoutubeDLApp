@@ -12,7 +12,7 @@ namespace YoutubeDLApp.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -61,8 +61,9 @@ namespace YoutubeDLApp.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestaudio\" --audio-format mp3 --embed-metadata --embed-thumbnail -o \"%(title)" +
-            "s.%(ext)s\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("-f \"bestaudio\" --audio-format mp3 --embed-metadata --embed-thumbnail --parse-meta" +
+            "data \"playlist_index:%(track_number)s\" --output-na-placeholder \"\" -o \"%(title)s." +
+            "%(ext)s\"")]
         public string AudioCustomAttributesTextField {
             get {
                 return ((string)(this["AudioCustomAttributesTextField"]));
