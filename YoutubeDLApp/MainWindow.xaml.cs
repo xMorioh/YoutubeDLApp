@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -112,6 +113,55 @@ namespace YoutubeDLApp
                 File.Move(ffmpegFinder[0], SpecifiedAppdataFolder() + "ffmpeg.exe");
                 File.Delete(pathWithZipFile);
                 Directory.Delete(ExtractedFolderPath, true);
+            }
+
+            //Update|Download Deno, need to do this first so the User knows when everything is done after yt-dlp has finished last.
+            if (!File.Exists(SpecifiedAppdataFolder() + "deno.exe"))
+            {
+                string pathWithZipFile = SpecifiedAppdataFolder() + "deno-x86_64-pc-windows-msvc.zip";
+
+                try //Catchblock if the Remote Server is down or the User has no Internet or the file does not exist anymore on the remote server etc.
+                {
+                    //Fetching the latest Tag version as Deno does not mark releases as latest.
+                    //Enumerating all Assets from latest and forming download link.
+                    var client = new HttpClient();
+
+                    //client.DefaultRequestHeaders.UserAgent.ParseAdd("MyApp/1.0");
+                    string denoDownloadUrl = null;
+                    using (var response = await client.GetAsync("https://api.github.com/repos/denoland/deno/releases/latest"))
+                    {
+                        response.EnsureSuccessStatusCode();
+                        var json = await response.Content.ReadAsStringAsync();
+                        var doc = JsonDocument.Parse(json);
+                        var assets = doc.RootElement.GetProperty("assets");
+                        
+                        foreach (var asset in assets.EnumerateArray())
+                        {
+                            if (asset.GetProperty("name").GetString() == "deno-x86_64-pc-windows-msvc.zip")
+                            {
+                                denoDownloadUrl = asset.GetProperty("browser_download_url").GetString();
+                            }
+                        }
+                    }
+                    
+
+                    var httpClient = new HttpClient();
+
+                    using (var HTTPstream = await httpClient.GetStreamAsync(denoDownloadUrl))
+                    {
+                        using (var fileStream = new FileStream(pathWithZipFile, FileMode.CreateNew, FileAccess.ReadWrite))
+                        {
+                            await HTTPstream.CopyToAsync(fileStream);
+                        }
+                    }
+                }
+                catch
+                {
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download Deno.\nPlease download deno.exe (not denort) from:\nhttps://github.com/denoland/deno/releases/latest and download deno-x86_64-pc-windows-msvc.zip\nand insert it into " + SpecifiedAppdataFolder());
+                }
+
+                System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
+                File.Delete(pathWithZipFile);
             }
 
 

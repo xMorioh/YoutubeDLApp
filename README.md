@@ -11,7 +11,7 @@ This Project is mostly for me to learn how to create Desktop Applications and to
 
 
 **Application Features**:
-* Automatically downloads the latest [ffmpeg](https://github.com/BtbN/FFmpeg-Builds) and [yt-dlp](https://github.com/yt-dlp/yt-dlp) files as dependencies
+* Automatically downloads the latest [ffmpeg](https://github.com/BtbN/FFmpeg-Builds), [yt-dlp](https://github.com/yt-dlp/yt-dlp) and [deno](https://github.com/denoland/deno) files as dependencies
 * Choose between Video and Audio
 * Include Playlist if needed via toggle
 * Set different directories for Output for Video and Audio
