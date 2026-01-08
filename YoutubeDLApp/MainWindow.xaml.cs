@@ -102,15 +102,17 @@ namespace YoutubeDLApp
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe from:\nhttps://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip\nand insert it into " + SpecifiedAppdataFolder());
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download ffmpeg.\nPlease download ffmpeg.exe from:\nhttps://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip\nand insert it into " + SpecifiedAppdataFolder() + "\n\nERROR CODE: " + ex);
                 }
 
                 System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
                 string ExtractedFolderPath = SpecifiedAppdataFolder() + "ffmpeg-master-latest-win64-gpl";
                 string[] ffmpegFinder = Directory.GetFiles(ExtractedFolderPath, "ffmpeg.exe", SearchOption.AllDirectories);
+                string[] ffprobeFinder = Directory.GetFiles(ExtractedFolderPath, "ffprobe.exe", SearchOption.AllDirectories);
                 File.Move(ffmpegFinder[0], SpecifiedAppdataFolder() + "ffmpeg.exe");
+                File.Move(ffprobeFinder[0], SpecifiedAppdataFolder() + "ffprobe.exe");
                 File.Delete(pathWithZipFile);
                 Directory.Delete(ExtractedFolderPath, true);
             }
@@ -126,7 +128,7 @@ namespace YoutubeDLApp
                     //Enumerating all Assets from latest and forming download link.
                     var client = new HttpClient();
 
-                    //client.DefaultRequestHeaders.UserAgent.ParseAdd("MyApp/1.0");
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("MyApp/1.0");
                     string denoDownloadUrl = null;
                     using (var response = await client.GetAsync("https://api.github.com/repos/denoland/deno/releases/latest"))
                     {
@@ -155,9 +157,9 @@ namespace YoutubeDLApp
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download Deno.\nPlease download deno.exe (not denort) from:\nhttps://github.com/denoland/deno/releases/latest and download deno-x86_64-pc-windows-msvc.zip\nand insert it into " + SpecifiedAppdataFolder());
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download Deno.\nPlease download deno.exe (not denort) from:\nhttps://github.com/denoland/deno/releases/latest and download deno-x86_64-pc-windows-msvc.zip\nand insert it into " + SpecifiedAppdataFolder() + "\n\nERROR CODE: " + ex);
                 }
 
                 System.IO.Compression.ZipFile.ExtractToDirectory(pathWithZipFile, SpecifiedAppdataFolder());
@@ -190,10 +192,10 @@ namespace YoutubeDLApp
                     var versionInfo = FileVersionInfo.GetVersionInfo(YTDlpExePath);
                     YTDlpVersion = versionInfo.FileVersion;
                 }
-                catch
+                catch (Exception ex)
                 {
                     YTDlpVersion = "null";
-                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe from:\nhttps://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe\nand insert it into " + SpecifiedAppdataFolder());
+                    System.Windows.Forms.MessageBox.Show("WARNING\nFailed to download yt-dlp.\nPlease download yt-dlp.exe from:\nhttps://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe\nand insert it into " + SpecifiedAppdataFolder() + "\n\nERROR CODE: " + ex);
                 }
             }
 
@@ -291,10 +293,19 @@ namespace YoutubeDLApp
 
         private void UpdateDependenciesButton_Click(object sender, RoutedEventArgs e)
         {
-            File.Delete(SpecifiedAppdataFolder() + "yt-dlp.exe");
-            File.Delete(SpecifiedAppdataFolder() + "ffmpeg.exe");
-            System.Windows.Forms.Application.Restart();
-            Environment.Exit(0);
+            try
+            {
+                File.Delete(SpecifiedAppdataFolder() + "yt-dlp.exe");
+                File.Delete(SpecifiedAppdataFolder() + "ffmpeg.exe");
+                File.Delete(SpecifiedAppdataFolder() + "ffprobe.exe");
+                File.Delete(SpecifiedAppdataFolder() + "deno.exe");
+                System.Windows.Forms.Application.Restart();
+                Environment.Exit(0);
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("WARNING\nFailed to remove one or more dependencies\nThey might not have been present before pressing the button\nIn that case you can safely ignore this message");
+            }
         }
 
         private void CustomAttributesTextField_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
