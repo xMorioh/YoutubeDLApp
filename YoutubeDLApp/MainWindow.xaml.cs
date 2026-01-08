@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
-using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -125,7 +125,7 @@ namespace YoutubeDLApp
                 try //Catchblock if the Remote Server is down or the User has no Internet or the file does not exist anymore on the remote server etc.
                 {
                     //Fetching the latest Tag version as Deno does not mark releases as latest.
-                    //Enumerating all Assets from latest and forming download link.
+                    //Extract Deno download URL from jeson via Regex as we don't want to install a third party Json reader.
                     var client = new HttpClient();
 
                     client.DefaultRequestHeaders.UserAgent.ParseAdd("MyApp/1.0");
@@ -133,19 +133,26 @@ namespace YoutubeDLApp
                     using (var response = await client.GetAsync("https://api.github.com/repos/denoland/deno/releases/latest"))
                     {
                         response.EnsureSuccessStatusCode();
-                        var json = await response.Content.ReadAsStringAsync();
-                        var doc = JsonDocument.Parse(json);
-                        var assets = doc.RootElement.GetProperty("assets");
-                        
-                        foreach (var asset in assets.EnumerateArray())
+                        string jsonString = await response.Content.ReadAsStringAsync();
+
+                        //Define the start and end patterns
+                        string startPattern = "https://github.com/denoland/deno/releases/download/";
+                        string endPattern = "deno-x86_64-pc-windows-msvc.zip";
+
+                        //Construct a flexible regex to match URLs that start with 'startPattern' and ends with 'endPattern'
+                        //We also make sure that in between start and end is at max 10 characters to not get a massive Json string.
+                        string regexPattern = $@"{Regex.Escape(startPattern)}(?:[^\""']{{0,10}}){Regex.Escape(endPattern)}";
+                        Match match = Regex.Match(jsonString, regexPattern, RegexOptions.IgnoreCase);
+
+                        if (match.Success)
                         {
-                            if (asset.GetProperty("name").GetString() == "deno-x86_64-pc-windows-msvc.zip")
-                            {
-                                denoDownloadUrl = asset.GetProperty("browser_download_url").GetString();
-                            }
+                            denoDownloadUrl = match.Value;
+                        }
+                        else
+                        {
+                            System.Windows.Forms.MessageBox.Show("Failed to extract Deno download URL from Json String.");
                         }
                     }
-                    
 
                     var httpClient = new HttpClient();
 
